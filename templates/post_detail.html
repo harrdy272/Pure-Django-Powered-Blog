@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='post-det'>
+    <h5 class="in-content-path"> <a href='/'>Home</a> <b>></b> <a href=''>{{ object.label }}</a> <b>></b> {{ object.title }}</h5>
+    <h2>{{ object.title }}</h2>
+    <p id="ppp"><b>by</b> <a href="{% url 'post_detail' object.pk %}"><b>Hardik Gupta</b></a> - {{ object.datepublished }}</p>
+    <p id="dashed">-------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+    <div class="incontent-image">
+        <img src="{{ object.upload.url }}">
+    </div>
+    <div class="postdata">
+        <p>{{ object.body|linebreaks }}</p>
+    </div>
+    <div class='below-content'>
+        <div class='single-tag'>
+            <p id='foot-tag'>Tags</p>
+            <p id='foot-label'><a href=''>{{ object.label }}</a></p>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

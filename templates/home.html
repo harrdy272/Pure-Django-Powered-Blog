@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for post in object_list reversed %}
+<div class='post-entry'>
+    <div class='post-entry-image'>
+        <a href="{% url 'post_detail' post.id %}"><img src="{{ post.upload.url }}"></a>
+        <h4 class="image-text">{{ post.label }}</h4>
+    </div>
+    <div class='post-entry-content'>
+        <h2>
+            <a href = "{% url 'post_detail' post.id %}">{{ post.title }}</a>
+        </h2>
+        <h3>by <a href='/'>Hardik Gupta</a> - {{ post.datepublished }}</h3>
+        <p>{{ post.body|truncatechars:100 }}</p>
+    </div>
+    <button onclick="location.href='{% url 'post_detail' post.id %}'" class="btn btn-success ml-2" type="submit">Read more →</button>
+    {% for i in data %}
+        {{ i }}
+    {% endfor %}
+</div>
+{% endfor %}
+{% endblock %}

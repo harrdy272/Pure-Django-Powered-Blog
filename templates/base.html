@@ -1,0 +1,83 @@
+{% load static %}
+<html>
+    <head>
+        <title>
+            A bit Hardik
+        </title>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    </head>
+    <body>
+        <div class="page-wrap">
+            <header>
+                <div class="top-base">
+                    <div class="social-icons">
+                        <a href='https://www.facebook.com/hardik.gupta.7758235/' target="_blank"><img src="{% static 'logo_imgs/fb.png' %}"></a>
+                        <a href='https://www.instagram.com/harrdy272/' target="_blank"><img src="{% static 'logo_imgs/insta.jpg' %}"></a>
+                    </div>
+                    <div class="logo">
+                        <a href='/'><img src="{% static 'logo_imgs/logo1.jpeg' %}"></a>
+                    </div>
+                    <div class="headbar">
+                        <h3><a href='/'>HOME</a></h3>
+                        {% if user.is_authenticated %}
+                        <p>|    Hi, {{ user.username }}</p>
+                        <p id="lsp"><a href="{% url 'logout' %}">Logout</a></p>
+                        {% else %}
+                        <!-- <p>|    Guest</p> -->
+                        <p id="lsp-1"><a href="{% url 'login' %}">Login</a>   |   <a href="{% url 'signup' %}">Signup</a></p>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <div class="right-nav">
+                    <p>SEARCH THIS BLOG</p>
+                    <div class="search-box">
+                        <input type="text" id="fname" name="fname" value="Search this blog">
+                        <input type="submit" value="Search">
+                    </div>
+                    <p>SOCIAL PLUGIN</p>
+                    <div class="nav-social">
+                        <a href='https://www.facebook.com/hardik.gupta.7758235/' target="_blank"><img src="{% static 'logo_imgs/fb.png' %}"></a>
+                        <a href='https://www.instagram.com/harrdy272/' target="_blank"><img src="{% static 'logo_imgs/insta.jpg' %}"></a>
+                    </div>
+                    <p>POPULAR POSTS</p>
+                    <div class="pop-post">
+                        {% for pst in view.top_post reversed %}
+                            <div class="pop-post-title">
+                                <a href="{% url 'post_detail' pst.pk %}">{{ pst.title }}</a>
+                            </div>
+                            <!-- <h3 id="pop-post-label">{{ pst.label }}</h3> -->
+                            <div class="pop-post-img">
+                                <a href="{% url 'post_detail' pst.pk %}"><img src="{{ pst.upload.url }}"></a>
+                            </div>
+                            
+                        {% endfor %}
+                    </div>
+                    
+                    <p>CATEGORIES</p>
+                    <ul>
+                        {% for lbl in view.stores %}
+                            <li><b>→</b> <a href=''>{{ lbl.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="leftpostcol">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <div class="footer">
+                    <div class="left-footer">
+                        <p>Copyright © Hardik Gupta</p>
+                    </div>
+                    <div class="right-footer">
+                        <p><a href="/">Home</a></p>
+                        <p><a href="">About</a></p>
+                        <p><a href="">Contact Us</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
